@@ -9,9 +9,9 @@
   ];
 
   # the backup service requires ZFS, so disable it
-  systemd = {
-    services.backup.enable = lib.mkForce false;
-    timers.backup.enable = lib.mkForce false;
+  services = {
+    py-backup.enable = lib.mkForce false;
+    sanoid.enable = lib.mkForce false;
   };
 
   # hardware

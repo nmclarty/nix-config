@@ -1,14 +1,11 @@
 { config, ... }: {
-  # upgrades
   system.autoUpgrade = {
     enable = true;
     flake = "github:nmclarty/nix";
-
     # timer
     dates = "*-*-* 5:00:00";
     persistent = true;
     randomizedDelaySec = "30m";
-
     # reboot
     allowReboot = true;
     rebootWindow = {
@@ -16,12 +13,12 @@
       upper = "06:00";
     };
   };
-  # sysctls
+
   boot.kernel.sysctl = {
     "net.ipv4.tcp_congestion_control" = "bbr";
     "vm.overcommit_memory" = 1; # allow overcommit for redis
   };
-  # pam
+
   security.pam = {
     rssh = {
       enable = true;
@@ -33,7 +30,8 @@
     };
     services.sudo.rssh = true;
   };
-  # use systemd boot
+
+  # use systemd boot (instead of grub)
   boot.loader = {
     efi.canTouchEfiVariables = true;
     systemd-boot = {

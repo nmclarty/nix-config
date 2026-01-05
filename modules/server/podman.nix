@@ -1,11 +1,9 @@
 { config, inputs, ... }: {
-  # import flake modules
   imports = with inputs; [
     quadlet-nix.nixosModules.quadlet
     nix-private.nixosModules.private
     nix-helpers.nixosModules.sops-podman
   ];
-  # enable private options
   private.enable = true;
 
   services.sops-podman = {
