@@ -47,6 +47,12 @@
           keyformat = "passphrase";
           keylocation = "file:///run/secrets/zfs/cold";
         };
+        datasets = {
+          backup = {
+            type = "zfs_fs";
+            mountpoint = "/cold/backup";
+          };
+        };
       };
     };
   };
