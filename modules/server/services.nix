@@ -27,7 +27,7 @@
       enable = true;
       settings = {
         services = map (s: "${s}.service") (builtins.attrNames
-          (lib.attrsets.filterAttrs (n: v: v.autoStart == true)
+          (lib.attrsets.filterAttrs (n: v: v.autoStart)
             config.virtualisation.quadlet.containers));
         zpool = "zroot";
         datasets = [ "nixos" "srv" ];
