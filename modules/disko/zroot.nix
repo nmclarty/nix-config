@@ -26,14 +26,17 @@
           "nixos/nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
+            options."syncoid:sync" = "false";
           };
           "nixos/cache" = {
             type = "zfs_fs";
             mountpoint = "/var/cache";
+            options."syncoid:sync" = "false";
           };
           "nixos/containers" = {
             type = "zfs_fs";
             mountpoint = "/var/lib/containers";
+            options."syncoid:sync" = "false";
           };
         };
       };
