@@ -53,6 +53,7 @@
             options."canmount" = "noauto";
           };
           shares.type = "zfs_fs";
+          vault.type = "zfs_fs";
         };
       };
     };

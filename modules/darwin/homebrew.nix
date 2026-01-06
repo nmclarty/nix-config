@@ -33,18 +33,19 @@
       "balenaetcher"
       # development
       "visual-studio-code"
-      "wireshark-app"
       "jetbrains-toolbox"
       "claude-code"
       "zed"
-      "sf-symbols"
       # media
       "google-chrome"
       "spotify"
       "discord"
       "prismlauncher"
       "blender"
+      # college
+      "sf-symbols"
       "zoom"
+      "unity-hub"
     ];
   };
 }
