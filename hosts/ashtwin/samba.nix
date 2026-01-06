@@ -1,7 +1,7 @@
 { config, ... }:
 let
-  privateShare = path: {
-    "path" = path;
+  privateShare = p: {
+    "path" = p;
     "writable" = "yes";
     # access
     "valid users" = "nmclarty";

@@ -1,4 +1,4 @@
-{ config, flake, ... }: {
+{ config, flake, inputs, ... }: {
   system = {
     stateVersion = "25.05";
     # the full git ref that the system was built from
@@ -17,11 +17,14 @@
   zramSwap.enable = true;
 
   # nix settings
-  sops.templates."nix/access-token" = {
-    owner = "nmclarty";
-    content = ''
-      access-tokens = github.com=${config.sops.placeholder."github/token"}
-    '';
+  sops = {
+    secrets."github/token".sopsFile = "${inputs.nix-private}/secrets.yaml";
+    templates."nix/access-token" = {
+      owner = "nmclarty";
+      content = ''
+        access-tokens = github.com=${config.sops.placeholder."github/token"}
+      '';
+    };
   };
   nix = {
     optimise.automatic = true;

@@ -1,4 +1,4 @@
-{ inputs, config, lib, ... }: {
+{ inputs, config, lib, pkgs, ... }: {
   imports = [ inputs.nix-helpers.nixosModules.py-backup ];
 
   # tailscale (and ssh)
@@ -16,15 +16,11 @@
   # filter out excessive logging
   systemd.services.tailscaled.serviceConfig.LogLevelMax = "notice";
 
-  # misc
+  # backup
   services = {
-    iperf3 = {
-      enable = true;
-      openFirewall = true;
-    };
-
     py-backup = {
       enable = true;
+      interval = "*-*-* 4:00:00";
       settings = {
         services = map (s: "${s}.service") (builtins.attrNames
           (lib.attrsets.filterAttrs (_: v: v.autoStart)
@@ -57,6 +53,16 @@
         recursive = true;
         processChildrenOnly = true;
       };
+    };
+  };
+  # these packages are needed by syncoid
+  environment.systemPackages = with pkgs; [ mbuffer zstd ];
+
+  # misc
+  services = {
+    iperf3 = {
+      enable = true;
+      openFirewall = true;
     };
   };
 }

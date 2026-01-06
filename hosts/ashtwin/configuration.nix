@@ -11,6 +11,7 @@
     apps.default
     # host
     ./samba.nix
+    ./backup.nix
   ];
 
   # hardware
@@ -54,5 +55,5 @@
   };
 
   # apps
-  apps.garage.enable = true;
+  # apps.garage.enable = true;
 }

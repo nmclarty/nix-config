@@ -57,6 +57,7 @@
             type = "zfs_fs";
             mountpoint = "/cold/shares";
           };
+          shares.type = "zfs_fs";
         };
       };
     };

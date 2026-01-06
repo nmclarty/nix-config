@@ -1,9 +1,9 @@
-{ config, ... }: {
+{ config, inputs, ... }: {
   system.autoUpgrade = {
     enable = true;
     flake = "github:nmclarty/nix";
     # timer
-    dates = "*-*-* 5:00:00";
+    dates = "*-*-* 6:00:00";
     persistent = true;
     randomizedDelaySec = "30m";
     # reboot
@@ -19,13 +19,14 @@
     "vm.overcommit_memory" = 1; # allow overcommit for redis
   };
 
+  sops.secrets."nmclarty/ssh/authorized_keys".sopsFile = "${inputs.nix-private}/secrets.yaml";
   security.pam = {
     rssh = {
       enable = true;
       settings = {
         cue = true;
         cue_prompt = "Authenticating with ssh-agent...";
-        auth_key_file = config.sops.secrets."nmclarty/ssh/remote".path;
+        auth_key_file = config.sops.secrets."nmclarty/ssh/authorized_keys".path;
       };
     };
     services.sudo.rssh = true;
