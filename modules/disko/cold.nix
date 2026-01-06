@@ -50,12 +50,7 @@
         datasets = {
           backup = {
             type = "zfs_fs";
-            mountpoint = "/cold/backup";
             options."canmount" = "noauto";
-          };
-          shares = {
-            type = "zfs_fs";
-            mountpoint = "/cold/shares";
           };
           shares.type = "zfs_fs";
         };
