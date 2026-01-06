@@ -23,9 +23,8 @@ with lib;
       enable = pkgs.stdenv.isLinux;
       settings = {
         modules = [ "update" ]
-          ++ lists.optional (hasAttr "backup" osConfig.systemd.services) "backup";
+          ++ lists.optional (hasAttr "py-backup" osConfig.services && osConfig.services.py-backup.enable) "backup";
         update.inputs = [ "nixpkgs" "nix-helpers" "nix-private" ];
-        backup.profiles = [ "local" "remote" ];
       };
     };
 
