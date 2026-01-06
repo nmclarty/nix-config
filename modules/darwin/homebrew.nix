@@ -37,6 +37,7 @@
       "jetbrains-toolbox"
       "claude-code"
       "zed"
+      "sf-symbols"
       # media
       "google-chrome"
       "spotify"
