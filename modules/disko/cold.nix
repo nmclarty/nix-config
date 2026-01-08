@@ -1,4 +1,5 @@
 {
+  boot.zfs.extraPools = [ "cold" ];
   disko.devices = {
     disk = {
       one = {
@@ -37,11 +38,10 @@
         type = "zpool";
         mode = "mirror";
         options.ashift = "12";
-        mountpoint = "/cold";
         rootFsOptions = {
           compression = "lz4";
           xattr = "sa";
-          canmount = "noauto";
+          mountpoint = "none";
           # encryption
           encryption = "aes-256-gcm";
           keyformat = "passphrase";
@@ -50,10 +50,16 @@
         datasets = {
           backup = {
             type = "zfs_fs";
-            options."canmount" = "noauto";
+            options.mountpoint = "none";
           };
-          shares.type = "zfs_fs";
-          vault.type = "zfs_fs";
+          shares = {
+          	type = "zfs_fs";
+          	options.mountpoint = "/cold/shares";
+          };
+          vault = {
+          	type = "zfs_fs";
+          	options.mountpoint = "/cold/vault";
+          };
         };
       };
     };
