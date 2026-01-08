@@ -1,7 +1,7 @@
 { inputs, ... }:
 let
   # automatically enable agent forwarding for rssh on servers
-  server = builtins.mapAttrs (name: _: { forwardAgent = true; }) inputs.self.nixosConfigurations;
+  server = builtins.mapAttrs (_: _: { forwardAgent = true; }) inputs.self.nixosConfigurations;
   manual = {
     "github.com" = {
       # ssh (port 22) is sometimes blocked by firewalls, so use port 443
