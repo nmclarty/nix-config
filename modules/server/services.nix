@@ -25,8 +25,10 @@
         services = map (s: "${s}.service") (builtins.attrNames
           (lib.attrsets.filterAttrs (_: v: v.autoStart)
             config.virtualisation.quadlet.containers));
-        zpool = "zroot";
-        datasets = [ "nixos" "srv" ];
+        zpool = {
+          name = "zroot";
+          datasets = [ "nixos" "srv" ];
+        };
       };
       restic = {
         repository = "s3:${config.private.restic.host}/${config.networking.hostName}-restic";
