@@ -2,14 +2,13 @@
   imports = with flake.modules; [
     # profiles
     nixos.default
-    server.default
+    nixos.server
+    nixos.apps
     # disko
+    disko.default
     disko.single
-    inputs.disko.nixosModules.disko
     # hardware
     "${inputs.nixpkgs}/nixos/modules/profiles/qemu-guest.nix"
-    # apps
-    apps.default
   ];
 
   # hardware

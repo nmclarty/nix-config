@@ -6,11 +6,12 @@ with inputs.nix-helpers.lib;
     ./forgejo
     ./garage
     ./immich
-    ./minecraft
-    ./pocket
     ./seafile
-    ./tinyauth
     ./traefik
+    ./pocket
+    ./tinyauth
+    ./minecraft
+    inputs.nix-private.modules.apps.default
   ];
   options.apps = {
     # global

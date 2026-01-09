@@ -1,11 +1,11 @@
-{ inputs, flake, pkgs, lib, ... }: {
+{ flake, pkgs, lib, ... }: {
   imports = with flake.modules; [
     # profiles
     nixos.default
-    server.default
-    # standalone
+    nixos.server
+    # disko
+    disko.default
     disko.sbc
-    inputs.disko.nixosModules.disko
   ];
 
   # the backup service requires ZFS, so disable it

@@ -1,11 +1,11 @@
-{ flake, inputs, ... }: {
+{ flake, ... }: {
   imports = with flake.modules; [
     # profiles
     nixos.default
-    server.default
+    nixos.server
     # standalone
+    disko.default
     disko.single
-    inputs.disko.nixosModules.disko
   ];
 
   # hardware

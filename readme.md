@@ -12,20 +12,19 @@ This flake uses the (opinionated) library [Blueprint](https://github.com/numtide
 ├── hosts # individual systems
 │   └── brittlehollow
 │       ├── *.nix # per-system config (such as ups settings)
-│       ├── users # per-system users (also imports modules/home)
-│       └── containers # per-system containers
-├── lib # helper functions
+│       └── users # per-system users (also imports modules/home)
 └── modules
     ├── darwin # MacOS system
     ├── disko # disk layouts
     ├── extra # extra modules (to be imported as-needed)
     ├── home # home manager
-    │   └── programs # per program (e.g. when more than a few lines)
-    ├── nixos # NixOS system
-    └── server # NixOS server
+    │   └── cli # CLI programs (fish, git, ssh, etc.)
+    └── nixos # NixOS system
+        ├── apps # application configurations (forgejo, immich, minecraft, etc.)
+        └── server # NixOS server-specific modules
 ```
  
 ### Dependencies
 Key flakes:
-- nix-private - sops-nix managed secrets and other config that I'd rather not have public
-- py_motd - A custom MOTD app that I made to learn more about Python and Nix packaging
+- nix-private - sops-nix managed secrets and other config that doesn't fit here
+- nix-helpers - A monorepo of several (typically python) applications and tools used here

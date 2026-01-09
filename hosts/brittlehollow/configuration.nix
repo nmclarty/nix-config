@@ -2,15 +2,13 @@
   imports = with flake.modules; [
     # profiles
     nixos.default
-    server.default
+    nixos.server
+    nixos.apps
     # disko
+    disko.default
     disko.mirror
-    inputs.disko.nixosModules.disko
     # extras
     extra.lanzaboote
-    # apps
-    apps.default
-    inputs.nix-private.modules.apps.default
     # host
     ./ups.nix
   ];
