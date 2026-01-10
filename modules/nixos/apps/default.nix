@@ -27,7 +27,7 @@ with inputs.nix-helpers.lib;
     { id = 2002; name = "immich"; tag = "release"; }
     { id = 2003; name = "seafile"; tag = "13.0-latest"; }
     { id = 2004; name = "traefik"; tag = "v3"; }
-    { id = 2005; name = "pocket"; tag = "v1"; }
+    { id = 2005; name = "pocket"; tag = "v2"; }
     { id = 2006; name = "tinyauth"; tag = "v4"; }
     { id = 2007; name = "minecraft"; tag = "stable"; }
     { id = 2008; name = "media"; tag = "latest"; }

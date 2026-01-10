@@ -22,8 +22,7 @@ with lib;
     py-motd = {
       enable = pkgs.stdenv.isLinux;
       settings = {
-        modules = [ "update" ]
-          ++ lists.optional (hasAttr "py-backup" osConfig.services && osConfig.services.py-backup.enable) "backup";
+        backup.enable = with osConfig; services ? py-backup && services.py-backup.enable;
         update.inputs = [ "nixpkgs" "nix-helpers" "nix-private" ];
       };
     };
