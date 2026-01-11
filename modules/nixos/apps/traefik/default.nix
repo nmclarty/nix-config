@@ -13,6 +13,7 @@ in
     # dirs
     systemd.tmpfiles.rules = [
       "d /srv/traefik - ${id} ${id}"
+      "d /srv/ddns-updater - ${id} ${id}"
     ];
 
     # containers
@@ -23,10 +24,10 @@ in
             image = "docker.io/library/traefik:${cfg.tag}";
             autoUpdate = "registry";
             user = "${id}:${id}";
-            environments = {
-              CF_DNS_API_TOKEN_FILE = "/run/secrets/traefik__dns_token";
-            };
-            secrets = [ "traefik__dns_token,uid=${id},gid=${id},mode=0400" ];
+            secrets = [
+              "traefik__porkbun__api_key,type=env,target=PORKBUN_API_KEY"
+              "traefik__porkbun__secret_key,type=env,target=PORKBUN_SECRET_API_KEY"
+            ];
             volumes = [
               "${config.sops.templates."traefik/traefik.yaml".path}:/etc/traefik/traefik.yaml:ro"
               "${config.sops.templates."traefik/dynamic.yaml".path}:/etc/traefik/dynamic.yaml:ro"
@@ -68,12 +69,20 @@ in
           };
         };
 
-        ddclient = {
+        ddns-updater = {
           containerConfig = {
-            image = "lscr.io/linuxserver/ddclient:latest";
+            image = "docker.io/qmcgaw/ddns-updater:latest";
             autoUpdate = "registry";
             user = "${id}:${id}";
-            volumes = [ "${config.sops.templates."ddclient/ddclient.conf".path}:/config/ddclient.conf" ];
+            volumes = [
+              "${config.sops.templates."ddns-updater/config.json".path}:/updater/data/config.json:ro"
+              "/srv/ddns-updater:/updater/data"
+            ];
+            networks = [ "exposed.network" ];
+            labels = {
+              "traefik.enable" = "true";
+              "traefik.http.routers.ddns-updater.middlewares" = "tinyauth";
+            };
           };
         };
       };

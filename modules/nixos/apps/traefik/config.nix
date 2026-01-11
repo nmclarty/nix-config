@@ -7,7 +7,8 @@ in
   config = lib.mkIf cfg.enable {
     sops = {
       secrets = mkSecrets [
-        "traefik/dns_token"
+        "traefik/porkbun/api_key"
+        "traefik/porkbun/secret_key"
       ] "${inputs.nix-private}/${config.networking.hostName}/podman.yaml";
 
       templates = {
@@ -39,7 +40,7 @@ in
                   middlewares:
                     - security@file
                   tls:
-                    certResolver: cloudflare
+                    certResolver: porkbun
                     domains:
                       - main: "${config.apps.domain}"
                         sans:
@@ -64,11 +65,11 @@ in
               disabledashboardad: true
 
             certificatesResolvers:
-              cloudflare:
+              porkbun:
                 acme:
                   storage: /data/acme.json
                   dnsChallenge:
-                    provider: cloudflare
+                    provider: porkbun
           '';
         };
         "traefik/dynamic.yaml" = {
@@ -90,26 +91,25 @@ in
           '';
         };
 
-        "ddclient/ddclient.conf" = {
-          restartUnits = [ "ddclient.service" ];
+        "ddns-updater/config.json" = {
+          restartUnits = [ "ddns-updater.service" ];
           owner = cfg.user.name;
-          content = ''
-            # general
-            daemon=300
-            # syslog=yes
-            # ssl=yes
-
-            # router
-            usev4=webv4
-            usev6=webv6
-
-            # protocol
-            protocol=cloudflare, \
-            zone=${config.apps.domain}, \
-            login=token, \
-            password=${config.sops.placeholder."traefik/dns_token"} \
-            *.${config.apps.domain}
-          '';
+          content =
+            let
+              # Well, I don't know why, but the client seems break with multple domains in that field,
+              # even though it says it should support that. Working around this by templating json.
+              settings = map
+                (k: {
+                  inherit (k) domain ip_version;
+                  provider = "porkbun";
+                  api_key = config.sops.placeholder."traefik/porkbun/api_key";
+                  secret_api_key = config.sops.placeholder."traefik/porkbun/secret_key";
+                }) [
+                { domain = "*.${config.apps.domain}"; ip_version = "ipv4"; }
+                { domain = "${config.apps.domain}"; ip_version = "ipv4"; }
+              ];
+            in
+            builtins.toJSON { inherit settings; }; # expects settings to be a key
         };
       };
     };
