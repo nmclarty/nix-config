@@ -13,8 +13,12 @@
   };
   # networkd is needed for dns
   networking.useNetworkd = true;
-  # filter out excessive logging
-  systemd.services.tailscaled.serviceConfig.LogLevelMax = "notice";
+  systemd.services.tailscaled = {
+    # stop ssh connection from dropping while rebuilding
+    restartIfChanged = false;
+    # filter out excessive logging
+    serviceConfig.LogLevelMax = "notice";
+  };
 
   # backup
   services = {
