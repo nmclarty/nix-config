@@ -13,7 +13,7 @@
 
     nh = {
       enable = true;
-      flake = "github:nmclarty/nix";
+      flake = "github:nmclarty/nix-config";
     };
 
     micro = {

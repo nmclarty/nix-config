@@ -1,7 +1,7 @@
 { config, inputs, ... }: {
   system.autoUpgrade = {
     enable = true;
-    flake = "github:nmclarty/nix";
+    flake = "github:nmclarty/nix-config";
     # timer
     dates = "*-*-* 6:00:00";
     persistent = true;
