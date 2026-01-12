@@ -39,6 +39,10 @@
 
   # apps
   apps = {
+    # settings
+    settings.cpus = "12-19";
+
+    # apps
     immich.enable = true;
     seafile.enable = true;
     traefik.enable = true;

@@ -275,7 +275,7 @@ in
           healthStartupCmd = "sleep 10";
           healthOnFailure = "kill";
         };
-        serviceConfig.AllowedCPUs = "12-19";
+        serviceConfig.AllowedCPUs = config.apps.settings.cpus;
         unitConfig = {
           Wants = [ "minecraft-mariadb.service" ];
           After = [ "minecraft-mariadb.service" ];

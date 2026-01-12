@@ -14,11 +14,17 @@ with inputs.nix-helpers.lib;
     inputs.nix-private.modules.apps.default
   ];
   options.apps = {
-    # global
-    domain = mkOption {
-      type = types.str;
-      default = config.private.domain;
-      description = "The domain name to use for all apps.";
+    settings = {
+      domain = mkOption {
+        type = types.str;
+        default = config.private.domain;
+        description = "The domain name to use for all apps.";
+      };
+      cpus = mkOption {
+        type = types.str;
+        default = "";
+        description = "The cpu core(s) that performance-intensive apps will be limited to.";
+      };
     };
     # apps
   } // mkContainerOptions [

@@ -53,12 +53,12 @@
             options.mountpoint = "none";
           };
           shares = {
-          	type = "zfs_fs";
-          	options.mountpoint = "/cold/shares";
+            type = "zfs_fs";
+            options.mountpoint = "/cold/shares";
           };
           vault = {
-          	type = "zfs_fs";
-          	options.mountpoint = "/cold/vault";
+            type = "zfs_fs";
+            options.mountpoint = "/cold/vault";
           };
         };
       };

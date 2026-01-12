@@ -71,7 +71,7 @@ in
             healthOnFailure = "kill";
           };
           unitConfig = mkContainerDeps [ "immich-redis" "immich-postgres" "immich-learning" ];
-          serviceConfig.AllowedCPUs = "12-19";
+          serviceConfig.AllowedCPUs = config.apps.settings.cpus;
         };
 
         immich-learning = {
@@ -89,7 +89,7 @@ in
             healthStartupCmd = "sleep 10";
             healthOnFailure = "kill";
           };
-          serviceConfig.AllowedCPUs = "12-19";
+          serviceConfig.AllowedCPUs = config.apps.settings.cpus;
         };
       };
       networks = { immich = { }; };

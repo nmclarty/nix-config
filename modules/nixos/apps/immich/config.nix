@@ -54,7 +54,7 @@ in
               "temporalAQ": false,
               "threads": 0,
               "tonemap": "hable",
-              "transcode": "required",
+              "transcode": "disabled",
               "twoPass": false
             },
             "image": {
@@ -204,7 +204,7 @@ in
               "clientSecret": "${config.sops.placeholder."immich/pocket/client_secret"}",
               "defaultStorageQuota": 250,
               "enabled": true,
-              "issuerUrl": "https://pocket.${config.apps.domain}",
+              "issuerUrl": "https://pocket.${config.apps.settings.domain}",
               "mobileOverrideEnabled": false,
               "mobileRedirectUri": "",
               "profileSigningAlgorithm": "none",
@@ -223,7 +223,7 @@ in
               "enabled": true
             },
             "server": {
-              "externalDomain": "https://immich.${config.apps.domain}",
+              "externalDomain": "https://immich.${config.apps.settings.domain}",
               "loginPageMessage": "",
               "publicUsers": true
             },
