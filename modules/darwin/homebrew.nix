@@ -8,9 +8,6 @@
       upgrade = true;
       extraFlags = [ "--quiet" ];
     };
-    caskArgs = {
-      appdir = "/Applications/homebrew";
-    };
     brews = [
       # mas cli for searching for mac app store apps
       "mas"
@@ -46,6 +43,7 @@
       "sf-symbols"
       "zoom"
       "unity-hub"
+      "dotnet-sdk"
     ];
   };
 }
