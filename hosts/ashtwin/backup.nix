@@ -19,9 +19,9 @@ in
 
         parallel -i syncoid --recursive \
             --compress=zstd-fast \
-            --exclude-snaps=backup \
+            --mbuffer-size=256M \
             --sshoption=UserKnownHostsFile=${config.sops.secrets."known_hosts".path} \
-            "root@{}:zroot" "cold/backup/{}" -- ${lib.concatStringsSep " " enabledHosts}
+            "root@{}:zroot" "cold/backup/{}" -- ${lib.concatStringsSep " " (map (s: "\"${s}\"") enabledHosts)}
       '';
     };
     timers.syncoid = {
