@@ -1,23 +1,31 @@
-{ flake, ... }: {
+{ flake, pkgs, lib, ... }: {
   imports = with flake.modules; [
     # profiles
     nixos.default
     nixos.server
-    # standalone
+    # disko
     disko.default
-    disko.single
+    disko.sbc
+    # host
+    ./ups.nix
   ];
+
+  # the backup service requires ZFS, so disable it
+  services = {
+    py-backup.enable = lib.mkForce false;
+    sanoid.enable = lib.mkForce false;
+  };
 
   # hardware
   networking = {
     hostName = "timberhearth";
-    hostId = "41bc3559";
+    hostId = "c8cdbbba";
   };
-  nixpkgs.hostPlatform = "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = true;
+  nixpkgs.hostPlatform = "aarch64-linux";
   boot = {
-    initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "sd_mod" ];
-    kernelModules = [ "kvm-intel" ];
+    # lts kernel lacks support for many rock 5b features
+    kernelPackages = pkgs.linuxPackages_latest;
+    initrd.availableKernelModules = [ "nvme" "usbhid" "usb_storage" "sr_mod" ];
   };
-  disko.devices.disk.primary.device = "/dev/sda";
+  disko.devices.disk.primary.device = "/dev/nvme0n1";
 }

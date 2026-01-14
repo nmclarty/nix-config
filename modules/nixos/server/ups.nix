@@ -12,7 +12,7 @@ with lib;
       };
       upsmon.monitor.primary = {
         passwordFile = config.sops.secrets."nut/monuser".path;
-        system = "primary@brittlehollow";
+        system = "primary@timberhearth";
         type = "secondary";
         user = "monuser";
       };

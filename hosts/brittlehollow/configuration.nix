@@ -9,8 +9,6 @@
     disko.mirror
     # extras
     extra.lanzaboote
-    # host
-    ./ups.nix
   ];
 
   # hardware
