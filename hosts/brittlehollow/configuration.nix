@@ -4,11 +4,10 @@
     nixos.default
     nixos.server
     nixos.apps
+    nixos.extra-lanzaboote
     # disko
     disko.default
     disko.mirror
-    # extras
-    extra.lanzaboote
   ];
 
   # hardware

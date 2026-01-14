@@ -1,8 +1,8 @@
 { flake, pkgs, ... }:
 {
-  imports = with flake.modules; [
-    home.default
-    extra.devel
+  imports = with flake.modules.home; [
+    default
+    extra-devel
   ];
 
   systemd.user.services.wsl2-ssh-agent = {

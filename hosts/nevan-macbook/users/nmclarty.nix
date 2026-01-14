@@ -1,7 +1,7 @@
 { flake, ... }: {
-  imports = with flake.modules; [
-    home.default
-    extra.devel
-    extra.work
+  imports = with flake.modules.home; [
+    default
+    extra-devel
+    extra-work
   ];
 }
