@@ -1,4 +1,6 @@
 { config, inputs, ... }: {
+  # stop auto upgrade service from triggering on rebuilds
+  systemd.services.nixos-upgrade.restartIfChanged = false;
   system.autoUpgrade = {
     enable = true;
     flake = "github:nmclarty/nix-config";

@@ -9,6 +9,7 @@
     gcc
     # managers
     cargo
+    uv
     # tools
     gh
     shellcheck

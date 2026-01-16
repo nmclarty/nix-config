@@ -21,5 +21,7 @@
   disko.devices.disk.primary.device = "/dev/sda";
 
   # apps
-  apps.forgejo.enable = true;
+  apps = {
+    forgejo.enable = true;
+  };
 }
