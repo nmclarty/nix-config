@@ -12,6 +12,7 @@ with inputs.nix-helpers.lib;
     ./tinyauth
     ./minecraft
     inputs.nix-private.modules.apps.default
+    ./attic
   ];
   options.apps = {
     settings = {
@@ -37,5 +38,6 @@ with inputs.nix-helpers.lib;
     { id = 2006; name = "tinyauth"; tag = "v4"; }
     { id = 2007; name = "minecraft"; tag = "stable"; }
     { id = 2008; name = "media"; tag = "latest"; }
+    { id = 2009; name = "attic"; tag = "latest"; }
   ];
 }

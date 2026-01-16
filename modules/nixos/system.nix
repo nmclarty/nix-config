@@ -1,4 +1,6 @@
-{ config, flake, inputs, ... }: {
+{ config, flake, inputs, ... }:
+with inputs.nix-helpers.lib;
+{
   system = {
     stateVersion = "25.05";
     # the full git ref that the system was built from
@@ -18,12 +20,32 @@
 
   # nix settings
   sops = {
-    secrets."github/token".sopsFile = "${inputs.nix-private}/secrets.yaml";
-    templates."nix/access-token" = {
-      owner = "nmclarty";
-      content = ''
-        access-tokens = github.com=${config.sops.placeholder."github/token"}
-      '';
+    secrets = mkSecrets [
+      "github/token"
+      "attic/public_key"
+      "attic/access_token"
+    ] "${inputs.nix-private}/secrets.yaml";
+    templates = {
+      "nix/github-config" = {
+        owner = "nmclarty";
+        content = ''
+          extra-access-tokens = github.com=${config.sops.placeholder."github/token"}
+        '';
+      };
+      "nix/attic-config" = {
+        owner = "nmclarty";
+        content = ''
+          extra-substituters = https://attic.${config.private.domain}/nix-config
+          extra-trusted-public-keys = ${config.sops.placeholder."attic/public_key"}
+        '';
+      };
+      "nix/attic-netrc" = {
+        owner = "nmclarty";
+        content = ''
+          machine attic.${config.private.domain}
+          password ${config.sops.placeholder."attic/access_token"}
+        '';
+      };
     };
   };
   nix = {
@@ -38,7 +60,9 @@
       warn-dirty = false;
     };
     extraOptions = ''
-      !include ${config.sops.templates."nix/access-token".path}
+      netrc-file = ${config.sops.templates."nix/attic-netrc".path}
+      !include ${config.sops.templates."nix/github-config".path}
+      !include ${config.sops.templates."nix/attic-config".path}
     '';
   };
 }

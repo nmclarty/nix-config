@@ -47,5 +47,6 @@
     tinyauth.enable = true;
     # minecraft.enable = true;
     media.enable = true;
+    attic.enable = true;
   };
 }

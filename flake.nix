@@ -11,7 +11,7 @@
     nixos-wsl.url = "github:nix-community/nixos-wsl";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     # personal
-    nix-private.url = "github:nmclarty/nix-private";
+    nix-private.url = "github:nmclarty/nix-private?ref=dev";
     nix-private.inputs.nixpkgs.follows = "nixpkgs";
     nix-helpers.url = "github:nmclarty/nix-helpers";
     nix-helpers.inputs.nixpkgs.follows = "nixpkgs";
